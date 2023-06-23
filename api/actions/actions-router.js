@@ -25,5 +25,13 @@ router.post('/', validateInfo, (req, res, next) => {
     .catch(next)
 })
 
+router.put('/:id', validateUserId, validateInfo, (req, res, next) => {
+    Action.update(req.params.id, {description: req.description, notes: req.notes, project_id: req.project_id})
+    .then(updatedAction => {
+        res.json(updatedAction)
+    })
+    .catch(next)
+})
+
 
 module.exports = router;
