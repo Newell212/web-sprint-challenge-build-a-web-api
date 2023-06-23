@@ -21,7 +21,12 @@ async function validateProjectId(req, res, next) {
 
 function validateInfo(req, res, next) {
     const { completed, description, name  } = req.body
-    if(!name || !description || !completed) {
+    if(completed == undefined) {
+        res.status(400).json({
+            message: "please supply all fields"
+        })
+    }
+    else if(!name || !description) {
         res.status(400).json({
             message: "please supply all fields"
         })

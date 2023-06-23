@@ -25,8 +25,9 @@ router.post('/', validateInfo, (req, res, next) => {
     .catch(next)
 })
 
-router.put('/:id', validateProjectId, validateInfo,  (req, res, next) => {
-  Project.update(req.params.id, req.body)
+router.put('/:id', validateProjectId, validateInfo, (req, res, next) => {
+    console.log(req.body)
+  Project.update(req.params.id, {name: req.name, description: req.description, completed: req.completed})
     .then(updatedProj => {
         res.json(updatedProj)
     })
