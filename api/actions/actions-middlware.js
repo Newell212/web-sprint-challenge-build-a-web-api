@@ -18,7 +18,22 @@ async function validateUserId(req, res, next) {
     }
 }
 
+function validateInfo(req, res, next) {
+    const { description, notes, project_id} = req.body
+    if(!description || !notes || !project_id || description.length > 128) {
+        res.status(400).json({
+            message: "please supply all the necessary fields"
+        })
+    } else {
+        req.description = description
+        req.notes = notes
+        req.project_id = project_id
+        next()
+    }
+}
+
 
 module.exports = {
-    validateUserId
+    validateUserId,
+    validateInfo
 }

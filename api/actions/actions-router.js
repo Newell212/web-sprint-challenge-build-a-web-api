@@ -1,5 +1,5 @@
 const express = require('express')
-const {validateUserId} = require('./actions-middlware')
+const {validateUserId, validateInfo} = require('./actions-middlware')
 
 const Action = require('./actions-model')
 
@@ -15,6 +15,14 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id', validateUserId, (req, res) => {
     res.json(req.action)
+})
+
+router.post('/', validateInfo, (req, res, next) => {
+    Action.insert({description: req.description, notes: req.notes, project_id: req.project_id})
+    .then(newAction => {
+        res.status(201).json(newAction)
+    })
+    .catch(next)
 })
 
 
