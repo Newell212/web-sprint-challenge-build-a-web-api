@@ -19,7 +19,21 @@ async function validateProjectId(req, res, next) {
     }
 }
 
+function validateInfo(req, res, next) {
+    const { name, description } = req.body
+    if(!name || !description) {
+        res.status(400).json({
+            message: "please supply all fields"
+        })
+    } else {
+        req.name = name
+        req.description = description
+        next()
+    }
+}
+
 
 module.exports = {
-    validateProjectId
+    validateProjectId,
+    validateInfo
 }
