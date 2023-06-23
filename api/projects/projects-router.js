@@ -13,5 +13,9 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
+router.get('/:id', validateProjectId, (req, res) => {
+    res.json(req.project)
+})
+
 
 module.exports = router;
